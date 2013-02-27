@@ -5,7 +5,8 @@ import json
 import requests
 import time
 import logging
-from sh import sudo
+
+import network
 
 # sampling interval in seconds
 delay = 5 * 60
@@ -41,19 +42,13 @@ while True:
     try:
         requests.post(humi_feed, data=json.dumps(humi), headers=headers)
     except requests.exceptions.RequestException:
-        logging.error('Internet connection problem')
-        logging.info('Bringing wlan0 up')
-        sudo('ifup', '--force', 'wlan0')
+        network.restart()
     try:
         requests.post(temp_feed, data=json.dumps(temp), headers=headers)
     except requests.exceptions.RequestException:
-        logging.error('Internet connection problem')
-        logging.info('Bringing wlan0 up')
-        sudo('ifup', '--force', 'wlan0')
+        network.restart()
     try:
         requests.post(moist_feed, data=json.dumps(moist), headers=headers)
     except requests.exceptions.RequestException:
-        logging.error('Internet connection problem')
-        logging.info('Bringing wlan0 up')
-        sudo('ifup', '--force', 'wlan0')
+        network.restart()
     time.sleep(delay)
