@@ -10,6 +10,9 @@ import sys
 
 # sampling interval in seconds
 delay = 5 * 60
+# Arduino client commands
+cmds = {
+    'sampling' : '00'}
 
 # feeds url
 devs_url = 'http://sensa.herokuapp.com/api/devices/' 
@@ -40,7 +43,7 @@ time.sleep(2)
 
 # read values from serial port and posts it to API
 def take_sample():
-    ardu.write('1')
+    ardu.write(cmds['sampling'])
     line = ardu.readline()
     humi, temp, moist = line.split(',')
     humi = {'value': int(float(humi.strip()))}
