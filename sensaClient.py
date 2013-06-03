@@ -6,7 +6,7 @@ import requests
 import time
 import logging
 import network
-import sys 
+import sys
 
 # sampling interval in seconds
 delay = 5 * 60
@@ -48,18 +48,18 @@ def take_sample():
     moist = {'value': float(moist.strip())}
     try:
         r = requests.post(humi_feed, data=json.dumps(humi), headers=headers)
-	      if (r.status_code != 201): logging.error(r.text)
+        if (r.status_code != 201): logging.error(r.text)
     except requests.exceptions.RequestException:
         network.restart()
     try:
         r = requests.post(temp_feed, data=json.dumps(temp), headers=headers)
-	      if (r.status_code != 201): logging.error(r.text)
+        if (r.status_code != 201): logging.error(r.text)
     except requests.exceptions.RequestException:
         network.restart()
     try:
         r = requests.post(moist_feed, data=json.dumps(moist), headers=headers)
     except requests.exceptions.RequestException:
-	      if (r.status_code != 201): logging.error(r.text)
+        if (r.status_code != 201): logging.error(r.text)
         network.restart()
 
 while True:
