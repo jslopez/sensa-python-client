@@ -6,6 +6,7 @@ import requests
 import time
 import logging
 import network
+import sys 
 
 # sampling interval in seconds
 delay = 5 * 60
@@ -32,7 +33,9 @@ logging.info('Posting data every %s seconds', delay)
 try:
     ardu = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
 except serial.SerialException:
-    logging.error('Device can not be found or can not be configured')
+    logging.error('Device can not be found or can not be configured.')
+    print 'ERROR : Device can not be found or can not be configured.'
+    sys.exit(1)
 time.sleep(2)
 
 # read values from serial port and posts it to API
