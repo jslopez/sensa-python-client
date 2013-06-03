@@ -5,16 +5,16 @@ import json
 import requests
 import time
 import logging
-
 import network
 
 # sampling interval in seconds
 delay = 5 * 60
 
 # feeds url
-moist_feed = 'http://sensa.herokuapp.com/api/devices/50ff6c26011a940200000001'
-humi_feed = 'http://sensa.herokuapp.com/api/devices/5106def5b183c00200000001'
-temp_feed = 'http://sensa.herokuapp.com/api/devices/5106defcb183c00200000002'
+devs_url = 'http://sensa.herokuapp.com/api/devices/' 
+moist_feed = devs_url + '50ff6c26011a940200000001'
+humi_feed = devs_url + '5106def5b183c00200000001'
+temp_feed = devs_url + '5106defcb183c00200000002'
 
 # headers used by each request
 headers = {'content-type': 'application/json',
