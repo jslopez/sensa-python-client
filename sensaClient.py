@@ -20,10 +20,6 @@ temp_feed = devs_url + '5106defcb183c00200000002'
 headers = {'content-type': 'application/json',
            'Authorization': 'Token token="ZsJ3ND3UHpYx8pqYp1pqzg"'}
 
-# device initialization (arduino)
-ardu = serial.Serial("/dev/ttyACM0", 9600)
-time.sleep(2)
-
 # logging configuration
 logging.basicConfig(
     filename='/home/pi/logs/sensaClient.log',
@@ -31,6 +27,13 @@ logging.basicConfig(
     format='%(asctime)s %(levelname)s: %(message)s.'
 )
 logging.info('Posting data every %s seconds', delay)
+
+# device initialization (arduino)
+try:
+    ardu = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
+except serial.SerialException:
+    logging.error('Device can not be found or can not be configured')
+time.sleep(2)
 
 while True:
     ardu.write('1')
